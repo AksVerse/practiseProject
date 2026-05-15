@@ -16,7 +16,7 @@ func ConnectRedis() error {
 
 	// This code works fine
 
-	/*
+	
 	RedisClient = redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
 		Password: "", // no password
@@ -24,15 +24,19 @@ func ConnectRedis() error {
 	})
 
 	// Test Connection
-	_, err := RedisClient.Ping(Ctx).Result()
+	res, err := RedisClient.Ping(Ctx).Result()
 
 	if err != nil {
 		panic(err)
 	}
 	_ = RedisClient.Set(context.TODO(), "ay7ush", "akshit",time.Minute * 10).Err()
+	fmt.Println("Result:",res)
 	fmt.Println("Redis Connected Successfully")
-	*/
+	
 
+	// Code to panic the system, fetal
+
+	/*
 	RedisClient = redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
 		Password: "",
@@ -52,6 +56,7 @@ func ConnectRedis() error {
 		"ay7ush",
 		"akshit",
 		time.Minute*10,
+		
 	).Err()
 
 	if err != nil {
@@ -59,6 +64,8 @@ func ConnectRedis() error {
 	}
 
 	fmt.Println("Redis Connected Successfully")
+
+	*/
 
 	return nil	
 
