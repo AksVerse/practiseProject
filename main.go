@@ -1,22 +1,24 @@
 package main
 
 import (
-	// "log"
 	"project/config"
+	"project/models"
+	"project/routes"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	//config.ConnectRedis()
-	config.ConnectRedis()
+
+	router := gin.Default()
+
 	config.ConnectPostgres()
-	// config.Mong()
-	// config.Post()
+	config.ConnectMongo()
+	config.ConnectRedis()
 
-	// err := config.ConnectRedis()
+	config.DB.AutoMigrate(&models.Student{})
 
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
+	routes.SetupRoutes(router)
 
-	// println("Server Started")
+	router.Run(":8080")
 }

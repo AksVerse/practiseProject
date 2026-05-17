@@ -1,7 +1,27 @@
 package config
 
-import "fmt"
+import (
+	"context"
+	"fmt"
+	"log"
 
-func Mong() {
-	fmt.Println("This is mongo db")
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+)
+
+var MongoClient *mongo.Client
+
+func ConnectMongo() {
+	client, err := mongo.Connect(
+		context.TODO(),
+		options.Client().ApplyURI("mongodb://localhost:27017"),
+	)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("MongoDB connected")
+
+	MongoClient = client
 }

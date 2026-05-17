@@ -1,32 +1,25 @@
 package config
 
 import (
-	"database/sql"
 	"fmt"
 	"log"
 
-	_ "github.com/jackc/pgx/v5/stdlib"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
-var DB *sql.DB
+var DB *gorm.DB
 
 func ConnectPostgres() {
+	dsn := "postgres://postgres:database123@localhost:5432/postgres"
 
-	connStr := "postgres://postgres:database123@localhost:5432/postgres"
-
-	db, err := sql.Open("pgx", connStr)
-
-	if err != nil {
-		log.Fatal("Error while connecting:", err)
-	}
-
-	err = db.Ping()
+	database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
-		log.Fatal("Database not responding:", err)
+		log.Fatal("Postgres connection failed")
 	}
 
-	DB = db
+	fmt.Println("Postgres connected")
 
-	fmt.Println("PostgreSQL Connected Successfully")
+	DB = database
 }
